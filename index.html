@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive To-Do List</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .todo-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        input{
+            height: 30px;
+            width: 290px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #f9f9f9;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task-name {
+            flex: 1;
+        }
+
+        .task-remove {
+            color: red;
+            cursor: pointer;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="todo-container">
+        <h1>My To-Do List</h1>
+        <input type="text" id="taskInput" placeholder="Add a new task and press Enter">
+        <ul id="taskList">
+            
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById('taskInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const taskName = e.target.value.trim();
+                if (taskName !== '') {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<span class="task-name">${taskName}</span><span class="task-remove">&times;</span>`;
+                    document.getElementById('taskList').appendChild(li);
+                    e.target.value = '';
+                }
+            }
+        });
+
+        document.getElementById('taskList').addEventListener('click', function (e) {
+            if (e.target.classList.contains('task-remove')) {
+                e.target.parentElement.remove();
+            } else if (e.target.classList.contains('task-name')) {
+                e.target.classList.toggle('completed');
+            }
+        });
+    </script>
+</body>
+
+</html>
